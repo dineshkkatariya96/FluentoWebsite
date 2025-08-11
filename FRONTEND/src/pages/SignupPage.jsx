@@ -49,7 +49,7 @@ const SignupPage = () => {
           {/* ERROR MESSAGE IF ANY */}
           {error && (
             <div className="alert alert-error mb-4">
-              <span>{error.response.data.message}</span>
+              <span>{error.response}</span>
             </div>
           )}
 

@@ -72,8 +72,13 @@ export async function login(req, res) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    console.log("Login attempt for email:", email);
+    
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid email or password" });
+
+    console.log("User found:", user._id);
+    
 
     const isPasswordCorrect = await user.matchPassword(password);
     if (!isPasswordCorrect) return res.status(401).json({ message: "Invalid email or password" });
@@ -88,6 +93,8 @@ export async function login(req, res) {
       sameSite: "strict", // prevent CSRF attacks
       secure: process.env.NODE_ENV === "production",
     });
+
+    console.log("user : ",user);
 
     res.status(200).json({ success: true, user });
   } catch (error) {
